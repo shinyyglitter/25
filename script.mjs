@@ -8,7 +8,7 @@ server.set('port', port);
 server.use(express.static('public'));
 
 //----------"Main page"------
-const headline = "Velkommen til oversiktsside for øvinger for MM-207";
+const headline = "<h2>Velkommen til oversiktsside for øvinger for MM-207</h2>";
 
 const pathToPoem = "For å få et opp et dikt, legg til /tmp/poem i adressebaren";
 
@@ -22,7 +22,16 @@ const getRoot = (req, res, next) => {
 server.get("", getRoot)
 
 //-----------Poem-----------
-const poem = "Jeg våknet en natt av en underlig drøm, det var som en stemme talte til meg, fjern som en underjordisk strøm-, og jeg reiste meg opp: Hva er det du vil meg?,– Du må ikke sove! Du må ikke sove. Du må ikke tro at du bare har drømt, I går ble jeg dømt, I natt reiste de skafottet i gården, De henter meg klokken fem i morgen"
+const poem = "<h2>Du må ikke sove - Arnulf Øverland</h2><br>"+"Jeg våknet en natt av en underlig drøm, <br>"+
+" det var som en stemme talte til meg,<br>" +
+ "fjern som en underjordisk strøm-,<br>"+
+ " og jeg reiste meg opp: <br>"+
+ "Hva er det du vil meg?,<br><br>"+
+ "– Du må ikke sove! Du må ikke sove. <br>"+
+ "Du må ikke tro at du bare har drømt,<br>"+
+ "I går ble jeg dømt,<br>"+
+ "I natt reiste de skafottet i gården,<br>"+
+ "De henter meg klokken fem i morgen"
 
 const listPoem = (req, res, next) => {res.status(HTTP_CODES.SUCCESS.OK).send(poem).end();}
 /**/
