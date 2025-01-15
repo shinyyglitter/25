@@ -6,13 +6,26 @@ const port = (process.env.PORT || 8080);
 
 server.set('port', port);
 server.use(express.static('public'));
+
+//----------"Main page"------
+const headline = "Velkommen til oversiktsside for øvinger for MM-207";
+
+const pathToPoem = "For å få et opp et dikt, legg til /tmp/poem i adressebaren";
+
+const pathToQuote = "For å få opp en tilfeldig Ole Brum quote, legg til /tmp/quote i adressebaren";
+
+const allText =  headline + " <br>"+ pathToPoem +"<br>" + pathToQuote  ;
+
+const getRoot = (req, res, next) => {
+    res.status(HTTP_CODES.SUCCESS.OK).send(allText).end();
+}
+server.get("", getRoot)
+
 //-----------Poem-----------
 const poem = "Jeg våknet en natt av en underlig drøm, det var som en stemme talte til meg, fjern som en underjordisk strøm-, og jeg reiste meg opp: Hva er det du vil meg?,– Du må ikke sove! Du må ikke sove. Du må ikke tro at du bare har drømt, I går ble jeg dømt, I natt reiste de skafottet i gården, De henter meg klokken fem i morgen"
 
 const listPoem = (req, res, next) => {res.status(HTTP_CODES.SUCCESS.OK).send(poem).end();}
-/*function getRoot(req, res, next) {
-    res.status(HTTP_CODES.SUCCESS.OK).send('Hello World').end();
-}*/
+/**/
 
 server.get("/tmp/poem", listPoem);
 
