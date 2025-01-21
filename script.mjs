@@ -1,7 +1,7 @@
 import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
-import { randomquote } from './code/quote.mjs';
-import { poem } from './code/poem.mjs';
+import { randomquote } from './code/uke3/quote.mjs';
+import { poem } from './code/uke3/poem.mjs';
 import { ListSum } from './code/sum.mjs';
 
 const server = express();
