@@ -2,24 +2,11 @@ import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
 
 const server = express();
-const port = (process.env.PORT || 8080);
+const port = (process.env.PORT || 8000);
 
 server.set('port', port);
 server.use(express.static('public'));
 
-//----------"Main page"------
-const headline = "<h2>Velkommen til oversiktsside for øvinger for MM-207</h2>";
-const pathToPoem = "For å få et opp et dikt, legg til /tmp/poem i adressebaren" + "<hr>";
-const pathToQuote = "For å få opp en tilfeldig Ole Brum quote, legg til /tmp/quote i adressebaren" + "<hr>";
-const pathToSum = "For å regne ut summen av to tall ved bruk av adressebaren, legg til /tmp/sum/a/b, der a og b representerer tallene"+ "<hr>"
-
-
-const allText =  headline + " <br>"+ pathToPoem +"<br>" + pathToQuote + "<br>" + pathToSum ;
-
-const getRoot = (req, res, next) => {
-    res.status(HTTP_CODES.SUCCESS.OK).send(allText).end();
-}
-server.get("", getRoot)
 
 //-----------Poem-----------
 const poem = "<h2>Du må ikke sove - Arnulf Øverland</h2><br>"+"Jeg våknet en natt av en underlig drøm, <br>"+
