@@ -14,4 +14,5 @@ for(const suit of suits){
     }
 }
 decks[deck_id] = {cards, drawn:[]}
+
 export const MakeDeck = (req, res, next) => {res.status(HTTP_CODES.SUCCESS.OK).send({deck_id}).end();}

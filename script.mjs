@@ -33,7 +33,7 @@ server.post('/tmp/sum/:a/:b', ListSum);
 
 //---------Oprett kortstokk------
 
-server.get('/tmp/deck', MakeDeck);
+server.post('/temp/deck', MakeDeck);
 
 /*//--------Stokk Kortstokken------
 server.patch('/tmp/deck/shuffle/:deck_id', ShuffleDeck);
