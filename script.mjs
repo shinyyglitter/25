@@ -3,7 +3,7 @@ import HTTP_CODES from './utils/httpCodes.mjs';
 import { randomquote } from './code/uke3/quote.mjs';
 import { poem } from './code/uke3/poem.mjs';
 import { ListSum } from './code/uke3/sum.mjs';
-import { MakeDeck, ShuffleDeck } from './code/uke4/kort.mjs';
+import { MakeDeck, ShuffleDeck, ShowDeck } from './code/uke4/kort.mjs';
 
 const server = express();
 const port = (process.env.PORT || 8000);
@@ -37,10 +37,10 @@ server.post('/temp/deck', MakeDeck);
 
 //--------Stokk Kortstokken------
 server.patch('/tmp/deck/shuffle/:deck_id', ShuffleDeck);
-/*
+
 //-----Returnerer kortstokken----
 server.get('/tmp/deck/:deck_id', ShowDeck);
-
+/*
 //--Vis tilfeldig kort fra bunken--
 server.get('/tmp/deck/:deck_id/card', ShowCard);*/
 

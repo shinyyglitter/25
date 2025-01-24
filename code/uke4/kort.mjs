@@ -44,4 +44,15 @@ export const ShuffleDeck = (req, res, next) => {
     res.status(HTTP_CODES.SUCCESS.OK).send(`Deck ${deck_id} has been shuffled!`).end();
 };
 
+//Hente hele kortstokken
+export const ShowDeck = (req, res, next) => {
+    const { deck_id } = req.params; 
+    const deck = decks[deck_id];
+    if (!decks[deck_id]) {
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send(`Deck not found`).end();
+    }
+
+    res.status(HTTP_CODES.SUCCESS.OK).send(deck.cards).end();
+}
+
 
