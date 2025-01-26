@@ -50,10 +50,26 @@ document.addEventListener('DOMContentLoaded', () => {
             outputContainer.textContent = 'Create a deck first!';
             return;
         }
+    
         const response = await fetch(`${API_BASE}/deck/${currentDeckId}`);
+
+        if (!response.ok) {
+            outputContainer.textContent = 'Failed to fetch deck!';
+            return;
+        }
+    
         const data = await response.json();
-        outputContainer.textContent = `Deck: ${JSON.stringify(data)}`;
-    });
+    
+        if (data && data.cards) {
+            const formattedDeck = data.cards.join("\n");
+            outputContainer.textContent = `Deck: \n${formattedDeck}`;
+        } else {
+            outputContainer.textContent = 'No cards in the deck.';
+        }
+    }); 
+    
+    
+    
 
     // Draw Card
     btnDrawCard.addEventListener('click', async () => {

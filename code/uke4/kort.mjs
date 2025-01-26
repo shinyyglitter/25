@@ -7,6 +7,36 @@ const decks = {};
 const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
 
+const suitSymbols = {
+    clubs: '♣',
+    diamonds: '♦',
+    hearts: '♥',
+    spades: '♠'
+};
+const formatCard = ({ suit, value }) => {
+    const suitSymbol = suitSymbols[suit.toLowerCase()]; 
+    return `${value} ${suitSymbol}`; 
+};
+
+const formatDeck = (deck) => {
+    return deck.map((card, index) => {
+        // Validate card properties
+        if (!card.value || !card.suit) {
+            console.error(`Card at index ${index} is missing value or suit:`, card);
+            return `Invalid Card`;
+        }
+
+        // Normalize suit case to lowercase
+        const suitSymbol = suitSymbols[card.suit.toLowerCase()];
+        if (!suitSymbol) {
+            console.error(`Card at index ${index} has an unrecognized suit:`, card.suit);
+            return `${card.value} UnknownSuit`;
+        }
+
+        return `${card.value} ${suitSymbol}`;
+    });
+};
+
 //-------------------------
 // Funksjon for å opprette et ny kortstokk
 //-------------------------
@@ -59,7 +89,8 @@ export const ShuffleDeck = (req, res) => {
 
     const deck = decks[deck_id];
         deck.cards = shuffle(deck.cards);
-        
+        const formattedDeck = formatDeck(deck.cards);
+
         return res.status(HTTP_CODES.SUCCESS.OK).json({
             message: `Deck ${deck_id} has been shuffled!`,
         });
@@ -73,15 +104,22 @@ export const ShuffleDeck = (req, res) => {
 //-------------------------
 //Hente hele kortstokken
 //-------------------------
-export const ShowDeck = (req, res, next) => {
-    const { deck_id } = req.params; 
+export const ShowDeck = (req, res) => {
+    const { deck_id } = req.params;
     const deck = decks[deck_id];
-    if (!decks[deck_id]) {
-        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send(`Deck not found`).end();
+
+    if (!deck) {
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send('Deck not found');
     }
 
-    res.status(HTTP_CODES.SUCCESS.OK).send(deck.cards).end();
-}
+    const formattedDeck = formatDeck(deck.cards);
+    return res.status(HTTP_CODES.SUCCESS.OK).json({
+        message: `Deck ${deck_id} contents`,
+        cards: formattedDeck
+    });
+};
+
+
 
 //-------------------------
 //Trekke kort fra dekket
@@ -90,14 +128,15 @@ export const DrawCard = (req, res, next) =>{
     const { deck_id } = req.params; 
     const deck = decks[deck_id];
     if (!decks[deck_id]) {
-        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send(`Deck not found`).end();
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).json(`Deck not found`);
     }
     if (deck.cards.length === 0) {
-        return res.status(HTTP_CODES.CLIENT_ERROR.BAD_REQUEST).send('No cards left in the deck').end();
+        return res.status(HTTP_CODES.CLIENT_ERROR.BAD_REQUEST).json('No cards left in the deck');
     }
 
     const card = deck.cards.pop();
+    const formattedCard = formatCard(card);
     deck.drawn.push(card);
-    res.status(HTTP_CODES.SUCCESS.OK).send(card).end()
+    res.status(HTTP_CODES.SUCCESS.OK).json(formattedCard)
 }
 
