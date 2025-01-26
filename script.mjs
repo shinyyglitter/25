@@ -1,49 +1,40 @@
-import express from 'express'
-import HTTP_CODES from './utils/httpCodes.mjs';
-import { randomquote } from './code/uke3/quote.mjs';
-import { poem } from './code/uke3/poem.mjs';
-import { ListSum } from './code/uke3/sum.mjs';
-import { MakeDeck, ShuffleDeck, ShowDeck, DrawCard } from './code/uke4/kort.mjs';
+document.addEventListener('DOMContentLoaded', () => {
+    const btnMakeDeck = document.getElementById('createDeck');
+    const btnShuffleDeck = document.getElementById('shuffleDeck');
+    const btnShowDeck = document.getElementById('showDeck');
+    const btnDrawCard = document.getElementById('drawCard');
+    const outputContainer = document.getElementById('outputContainer');
 
-const server = express();
-const port = (process.env.PORT || 8000);
+    const API_BASE = 'http://localhost:8000/tmp';
 
-server.set('port', port);
-server.use(express.static('public'));
+    // Create Deck
+    btnMakeDeck.addEventListener('click', async () => {
+        const response = await fetch(`${API_BASE}/deck`, { method: 'POST' });
+        const data = await response.json();
+        outputContainer.textContent = `Created Deck: ${JSON.stringify(data)}`;
+    });
 
-//--------------------------------
-//UKE 3
-//--------------------------------
+    // Shuffle Deck
+    btnShuffleDeck.addEventListener('click', async () => {
+        const deckId = "your-deck-id"; // Update to pass your dynamic deck ID
+        const response = await fetch(`${API_BASE}/deck/shuffle/${deckId}`, { method: 'PATCH' });
+        const data = await response.json();
+        outputContainer.textContent = `Shuffled Deck: ${JSON.stringify(data)}`;
+    });
 
-//-----------Poem-----------
-const listPoem = (req, res, next) => {res.status(HTTP_CODES.SUCCESS.OK).send(poem).end();}
-server.get("/tmp/poem", listPoem);
+    // Show Deck
+    btnShowDeck.addEventListener('click', async () => {
+        const deckId = "your-deck-id";
+        const response = await fetch(`${API_BASE}/deck/${deckId}`);
+        const data = await response.json();
+        outputContainer.textContent = `Deck: ${JSON.stringify(data)}`;
+    });
 
-//----------Quote--------------
-const ListRandomQuote = (req, res, next) => {res.status(HTTP_CODES.SUCCESS.OK).send(randomquote).end();}
-server.get("/tmp/quote", ListRandomQuote);
-
-//---------Sum---------
-server.post('/tmp/sum/:a/:b', ListSum);
-
-
-//--------------------------------
-//UKE 4
-//--------------------------------
-
-//---------Oprett kortstokk------
-
-server.post('/temp/deck', MakeDeck);
-
-//--------Stokk Kortstokken------
-server.patch('/tmp/deck/shuffle/:deck_id', ShuffleDeck);
-
-//-----Returnerer kortstokken----
-server.get('/tmp/deck/:deck_id', ShowDeck);
-
-//--Vis tilfeldig kort fra bunken--
-server.get('/tmp/deck/:deck_id/card', DrawCard);
-
-server.listen(server.get('port'), function () {
-    console.log('server running', server.get('port'));
+    // Draw Card
+    btnDrawCard.addEventListener('click', async () => {
+        const deckId = "your-deck-id";
+        const response = await fetch(`${API_BASE}/deck/${deckId}/card`);
+        const data = await response.json();
+        outputContainer.textContent = `Drew Card: ${JSON.stringify(data)}`;
+    });
 });

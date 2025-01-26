@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="script.mjs" type="module" defer></script>
+    <title>App2</title>
 </head>
 <body>
     <h1>Velkommen til oversiktsside for øvinger for MM-207</h1>
@@ -12,6 +13,13 @@
         For å få opp en tilfeldig Ole Brum quote, legg til /tmp/quote i adressebaren<hr>
         For å regne ut summen av to tall ved bruk av adressebaren, legg til /tmp/sum/a/b, der a og b representerer tallene
     <hr></h3>
+    <br>
+    <h1>Kort: </h1>
+    <button id="createDeck">Lag en kortstokk</button>
+    <button id="shuffleDeck">Stokk kortstokken</button>
+    <button id="showDeck">Vis Kortstokken</button>
+    <button id="drawCard">Trekk et kort</button>
+    <div id="outputContainer"></div>
 </body>
 </html>
 

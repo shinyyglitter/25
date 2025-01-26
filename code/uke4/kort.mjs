@@ -1,4 +1,4 @@
-import HTTP_CODES from "../../utils/httpCodes.mjs";
+import HTTP_CODES from "../../server/utils/httpCodes.mjs";
 
 // Opprett deck-objektet
 const decks = {};
