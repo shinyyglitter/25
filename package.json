@@ -1,4 +1,10 @@
 {
+  "name": "my_project",
+  "version": "1.0.0",
+  "type": "module", 
+  "scripts": {
+    "start": "node server/server.js"
+  },
   "dependencies": {
     "express": "^4.21.2"
   }

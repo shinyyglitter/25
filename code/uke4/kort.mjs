@@ -19,7 +19,7 @@ export const MakeDeck = (req, res, next) => {
     }
 
     decks[deck_id] = { cards, drawn: [] };
-    res.status(HTTP_CODES.SUCCESS.OK).send(`The deck ID is: ${deck_id}`).end();
+    return {deck_id, cards}
 };
 
 //-------------------------

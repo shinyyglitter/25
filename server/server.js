@@ -35,7 +35,17 @@ server.post('/tmp/sum/:a/:b', ListSum);
 
 //---------Oprett kortstokk------
 
-server.post('/tmp/deck', MakeDeck);
+server.post('/tmp/deck', (req, res) => {
+    try {
+        const { deck_id, cards } = MakeDeck();
+        res.status(HTTP_CODES.SUCCESS.OK).json({ message: `The deck ID is: ${deck_id}`, cards });
+    } catch (error) {
+        console.error('Error creating deck:', error);
+        res.status(HTTP_CODES.SERVER_ERROR.INTERNAL).json({ error: error.message });
+    }
+});
+   
+
 
 
 
