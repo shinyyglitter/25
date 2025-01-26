@@ -9,28 +9,40 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentDeckId = null; 
     // Create Deck
     btnMakeDeck.addEventListener('click', async () => {
-        try {
-            const response = await fetch(`${API_BASE}/deck`, { method: 'POST' });
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status}`);
-            }
-            const data = await response.json();
-            outputContainer.textContent = `Created Deck: ${JSON.stringify(data)}`;
-        } catch (error) {
-            outputContainer.textContent = `Failed to create deck: ${error.message}`;
-        }
-    });
+        
 
-    // Shuffle Deck
-    btnShuffleDeck.addEventListener('click', async () => {
-        if (!currentDeckId) {
-            outputContainer.textContent = 'Create a deck first!';
-            return;
+        const response = await fetch(`${API_BASE}/deck`, { method: 'POST' });
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
         }
-        const response = await fetch(`${API_BASE}/deck/shuffle/${currentDeckId}`, { method: 'PATCH' });
         const data = await response.json();
-        outputContainer.textContent = `Shuffled Deck: ${JSON.stringify(data)}`;
+        console.log("Server response:", data); 
+
+        if (data && data.deck_id) {
+            currentDeckId = data.deck_id;
+            outputContainer.textContent = `Created Deck: ${JSON.stringify(currentDeckId)}`;
+        } else {
+            outputContainer.textContent = 'Deck creation failed, no deck_id returned.';
+        }
+    
+});
+
+    btnShuffleDeck.addEventListener('click', async () => {
+        const response = await fetch(`${API_BASE}/deck/shuffle/${currentDeckId}`, { method: 'PATCH' });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`HTTP Error: ${response.status} - ${errorData.message}`);
+            }
+    
+            const data = await response.json();
+            outputContainer.textContent = `Shuffled Deck: ${JSON.stringify(data)}`;
     });
+    
+    
+    
+    
+    
 
     // Show Deck
     btnShowDeck.addEventListener('click', async () => {

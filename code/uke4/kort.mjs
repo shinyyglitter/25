@@ -1,5 +1,7 @@
 import HTTP_CODES from "../../server/utils/httpCodes.mjs";
 
+console.log(HTTP_CODES);  
+
 // Opprett deck-objektet
 const decks = {};
 const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
@@ -9,7 +11,13 @@ const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', '
 // Funksjon for å opprette et ny kortstokk
 //-------------------------
 export const MakeDeck = (req, res, next) => {
-    const deck_id = Math.random().toString(36).substring(2, 8);
+        
+
+        // Sanity check for `res` and `req`
+        if (!res) {
+            throw new Error('Response object not found.');
+        }
+        const deck_id = Math.random().toString(36).substring(2, 8);
     const cards = [];
 
     for (const suit of suits) {
@@ -19,7 +27,8 @@ export const MakeDeck = (req, res, next) => {
     }
 
     decks[deck_id] = { cards, drawn: [] };
-    return {deck_id, cards}
+    res.status(HTTP_CODES.SUCCESS.OK).json({ deck_id });
+    
 };
 
 //-------------------------
@@ -28,26 +37,38 @@ export const MakeDeck = (req, res, next) => {
 
 //Funksjon for å stokke kortstokkne
 const shuffle = (deck) => {
-    for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-    return deck;
+
+        for (let i = deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [deck[i], deck[j]] = [deck[j], deck[i]]; 
+        }
+        return deck;
+    
 };
 
-export const ShuffleDeck = (req, res, next) => {
-    const { deck_id } = req.params; 
-    const deck = decks[deck_id];
+
+
+
+export const ShuffleDeck = (req, res) => {
+    const { deck_id } = req.params;
 
     if (!decks[deck_id]) {
-        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send(`Deck ID ${deck_id} not found`).end();
+        console.error(`Deck ID ${deck_id} not found`);
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).json({ message: `Deck ID ${deck_id} not found` });
     }
 
-
-    deck.cards = shuffle(deck.cards);
-
-    res.status(HTTP_CODES.SUCCESS.OK).send(`Deck ${deck_id} has been shuffled!`).end();
+    const deck = decks[deck_id];
+        deck.cards = shuffle(deck.cards);
+        
+        return res.status(HTTP_CODES.SUCCESS.OK).json({
+            message: `Deck ${deck_id} has been shuffled!`,
+        });
+    
 };
+
+    
+
+
 
 //-------------------------
 //Hente hele kortstokken
