@@ -4,13 +4,16 @@ import { randomquote } from '../code/uke3/quote.mjs';
 import { poem } from '../code/uke3/poem.mjs';
 import { ListSum } from '../code/uke3/sum.mjs';
 import { MakeDeck, ShuffleDeck, ShowDeck, DrawCard } from '../code/uke4/kort.mjs';
+import { LOGG_LEVELS, eventLogger } from './modules/log.mjs';
 
-
+const ENABLE_LOGGING = false;
 
 const server = express();
 const port = (process.env.PORT || 8000);
+const logger = log(LOGG_LEVELS.VERBOSE);
 
 server.set('port', port);
+server.use(logger);
 server.use(express.static('public'));
 
 //--------------------------------
