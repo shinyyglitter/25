@@ -8,6 +8,10 @@ import { MakeDeck, ShuffleDeck, ShowDeck, DrawCard } from '../code/uke4/kort.mjs
 import log from '../modules/log.mjs';
 import { LOGG_LEVELS } from '../modules/log.mjs';
 import abTest from '../modules/abtesting.mjs';
+import { startSession, updateSession } from './modules/session.mjs';
+import treeRouter from './routes/treeAPI.mjs';
+import questLogRouter from './routes/questLogAPI.mjs';
+import userRouter from './routes/userAPI.mjs';
 
 
 
@@ -20,7 +24,11 @@ server.set('port', port);
 server.use(cookieParser())
 server.use(logger);
 server.use(abTest)
+server.use(startSession);
 server.use(express.static('public'));
+server.use("/tree/", treeRouter);
+server.use("/quest", questLogRouter);
+server.use("/user", userRouter)
 
 //--------------------------------
 //UKE 3
