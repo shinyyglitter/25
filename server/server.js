@@ -8,7 +8,7 @@ import { MakeDeck, ShuffleDeck, ShowDeck, DrawCard } from '../code/uke4/kort.mjs
 import log from '../modules/log.mjs';
 import { LOGG_LEVELS } from '../modules/log.mjs';
 import abTest from '../modules/abtesting.mjs';
-import { startSession, updateSession } from './modules/session.mjs';
+import { startSession, updateSession } from '../modules/session.mjs';
 import treeRouter from './routes/treeAPI.mjs';
 import questLogRouter from './routes/questLogAPI.mjs';
 import userRouter from './routes/userAPI.mjs';
