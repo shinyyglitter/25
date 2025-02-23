@@ -1,7 +1,9 @@
 import express from "express";
 import { Graph, GraphNode, connectNodes, saveGraph, inflateGraph } from "../data/graph.mjs";
 import HTTP_CODES from "../server/utils/httpCodes.mjs";
+
 const graphRouter = express.Router();
+const graph = Graph();
 
 graphRouter.get("/", (req,res)=> {
     res.json(saveGraph(graph));
@@ -37,7 +39,7 @@ graphRouter.post("/connect", (req, res) => {
 graphRouter.post("/import", (req, res) => {
     const { json } = req.body;
     if (!json) {
-        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).json({ error: "JSON is required" });
+        return res.status(HTTP_CODES.CLIENT_ERROR.BAD_REQUEST).json({ error: "JSON is required" });
     }
 
     const newGraph = inflateGraph(json);

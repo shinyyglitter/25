@@ -12,6 +12,7 @@ import { startSession, updateSession } from '../modules/session.mjs';
 import treeRouter from '../routes/treeAPI.mjs';
 import questLogRouter from '../routes/questLogAPI.mjs';
 import userRouter from '../routes/userAPI.mjs';
+import graphRouter from '../routes/graphAPI.mjs';
 
 
 
@@ -27,8 +28,9 @@ server.use(abTest)
 server.use(startSession);
 server.use(express.static('public'));
 server.use("/tree/", treeRouter);
+server.use("/graph/", graphRouter);
 server.use("/quest", questLogRouter);
-server.use("/user", userRouter)
+server.use("/user", userRouter);
 
 //--------------------------------
 //UKE 3
