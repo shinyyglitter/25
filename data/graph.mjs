@@ -1,5 +1,5 @@
 
-const GraphNode = (data) => {
+ const GraphNode = (data) => {
     return{data, edges: new Set()}
 }
 //Set hindrer duplikater
@@ -8,7 +8,7 @@ const Graph = () => {
     return {nodes: new Set()}
 }
 
-const connectNodes = (nodeA, nodeB) => {
+export const connectNodes = (nodeA, nodeB) => {
     nodeA.edges.add(nodeB)
 }
 
