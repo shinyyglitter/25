@@ -1,0 +1,10 @@
+{
+    "name": "textPWA",
+    "icons":  [
+        {"src": "icons/messageIcon.jpg",
+    "type": "image/jpg",
+"sizes": "512x512"}
+    ],
+    "start_url": "/",
+    "display": "standalone"
+}
