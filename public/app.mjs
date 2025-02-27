@@ -17,22 +17,15 @@ const registerServiceWorker = async () => {
     }
   };
   
-  // …
+
   
   registerServiceWorker();
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/");
-  }
-
-  const cacheName = "js13kPWA-v1";
+  const cacheName = "texrtPWA-v1";
   const appShellFiles = [];
-  const gamesImages = [];
-  for (let i = 0; i < games.length; i++) {
-    gamesImages.push(`data/img/${games[i].slug}.jpg`);
-  }
-  const contentToCache = appShellFiles.concat(gamesImages);
-
+  const contentToCache = appShellFiles;
+  
+  
   self.addEventListener("install", (e) => {
     console.log("[Service Worker] Install");
     e.waitUntil(

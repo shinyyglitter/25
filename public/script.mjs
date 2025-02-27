@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     const btnMakeDeck = document.getElementById('createDeck');
     const btnShuffleDeck = document.getElementById('shuffleDeck');
     const btnShowDeck = document.getElementById('showDeck');
@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const outputContainer = document.getElementById('outputContainer');
 
     const API_BASE = 'http://localhost:8000/tmp';
-    let currentDeckId = null; 
+     let currentDeckId = null; 
     // Create Deck
-    btnMakeDeck.addEventListener('click', async () => {
+   btnMakeDeck.addEventListener('click', async () => {
         
 
         const response = await fetch(`${API_BASE}/deck`, { method: 'POST' });
@@ -81,4 +81,4 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         outputContainer.textContent = `Drew Card: ${JSON.stringify(data)}`;
     });
-});
+}) */
