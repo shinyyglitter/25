@@ -1,9 +1,9 @@
 {
     "name": "textPWA",
     "icons":  [
-        {"src": "icons/messageIcon.jpg",
-    "type": "image/jpg",
-"sizes": "512x512"}
+        {"src": "icons/icon.png",
+    "type": "image/png",
+"sizes": "144x144"}
     ],
     "start_url": "/",
     "display": "standalone"
