@@ -2,14 +2,14 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import HTTP_CODES from './utils/httpCodes.mjs';
 
-import log from '../modules/log.mjs';
-import { LOGG_LEVELS } from '../modules/log.mjs';
-import abTest from '../modules/abtesting.mjs';
-import { startSession, updateSession } from '../modules/session.mjs';
-import treeRouter from '../routes/treeAPI.mjs';
-import questLogRouter from '../routes/questLogAPI.mjs';
-import userRouter from '../routes/userAPI.mjs';
-import graphRouter from '../routes/graphAPI.mjs';
+import log from './modules/log.mjs';
+import { LOGG_LEVELS } from './modules/log.mjs';
+import abTest from './modules/abtesting.mjs';
+import { startSession, updateSession } from './modules/session.mjs';
+import treeRouter from './routes/treeAPI.mjs';
+import questLogRouter from './routes/questLogAPI.mjs';
+import userRouter from './routes/userAPI.mjs';
+import graphRouter from './routes/graphAPI.mjs';
 
 
 
