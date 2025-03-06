@@ -1,6 +1,6 @@
 import express from "express";
 import { Graph, GraphNode, connectNodes, saveGraph, inflateGraph } from "../data/graph.mjs";
-import HTTP_CODES from "../server/utils/httpCodes.mjs";
+import HTTP_CODES from "../utils/httpCodes.mjs";
 
 const graphRouter = express.Router();
 const graph = Graph();
