@@ -1,5 +1,4 @@
 node_modules/
-logs/log.csv
 .env
 init/
 routes/treeAPI.mjs

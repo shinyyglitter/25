@@ -81,4 +81,4 @@ const savelog = async (text) => {
     await fs.appendFile("./logs/log.csv", text);
 }
 
-export default log;
+export default log; 
