@@ -53,11 +53,11 @@ run();  */
 
 //CRUD
  export async function create(statement,...values){
-   console.log("Kjører spørring:", statement, "med verdier:", values); // Logging av spørringen
+   console.log("Kjører spørring:", statement, "med verdier:", values); 
 
-  const result = await runQuery(statement, ...values);  // Kjør spørringen og få resultatet
+  const result = await runQuery(statement, ...values);  
 
-  console.log("Resultat fra spørring:", result);  // Logging av resultatet fra databasen
+  console.log("Resultat fra spørring:", result);  
   return result;
 }
 export async function read(statement,...values){
