@@ -1,15 +1,15 @@
 import TemplateManager from "../modules/templateManager.mjs";
-const templateFile = "loginView.html";
+const templateFile = "usergeneratorView.html";
 
 const template = TemplateManager.fetchTemplate(templateFile);
-const loginView = TemplateManager.cloneTemplate(template, document.body);
+const usergeneratorView = TemplateManager.cloneTemplate(template, document.body);
 
 loginView.getElementById("button").onclick = (evt) => {
-    console.log("Yesss");
+    console.log("knappen funker");
 }
 
-LoginViewController = {
-    view: loginView
+UsergeneratorViewController = {
+    view: usergeneratorView
 };
 
 
