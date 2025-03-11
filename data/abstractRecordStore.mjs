@@ -1,3 +1,12 @@
+function RecordStoreAbstractInterface(){
+  return{
+    create,
+    read,
+    update,
+    purge
+  }
+}
+
 class RecordStoreAbstractInterface {
     async create() {
       throw new Error("Not implemented");
