@@ -1,4 +1,4 @@
-import UserRecordStore from "./graphRecordStore.mjs";
+import UserRecordStore from "./userRecordStore.mjs";
 
 const storageHandler = new UserRecordStore();
 

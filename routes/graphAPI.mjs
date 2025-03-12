@@ -1,14 +1,14 @@
 import express from "express";
-import { Graph, GraphNode, connectNodes, saveGraph, inflateGraph } from "../data/graph.mjs";
+import UserRecordStore from "../data/userRecordStore.mjs";
 import HTTP_CODES from "../utils/httpCodes.mjs";
 
 const graphRouter = express.Router();
-const graph = Graph();
+const graph =  new UserRecordStore;
 
 graphRouter.get("/", (req,res)=> {
     res.json(saveGraph(graph));
 })
-
+/*
 graphRouter.post("/node", (req, res) => {
     const { data } = req.body;
     if (!data) {
@@ -47,4 +47,4 @@ graphRouter.post("/import", (req, res) => {
     res.status(HTTP_CODES.SUCCESS.CREATED).json({ message: "Graph imported", graph: saveGraph(graph) });
 });
 
-export default graphRouter;
+export default graphRouter; */

@@ -1,18 +1,18 @@
 import TemplateManager from "../modules/templateManager.mjs";
-import { createUser } from "../../modules/generateUser.mjs";
-const templateFile = "usergeneratorView.html";
+import { createUser } from "../modules/generateUser.mjs";
 
-const template = TemplateManager.fetchTemplate(templateFile);
-const usergeneratorView = TemplateManager.cloneTemplate(template, document.body);
+const templateFile = "/controller/usergeneratorView.html";
 
-loginView.getElementById("button").onclick = (evt) => {
-    createUser()
-    console.log("knappen funker");
+async function loadUsergeneratorView() {
+    const template = await TemplateManager.fetchTemplate(templateFile);
+    const usergeneratorView = TemplateManager.cloneTemplate(template, document.body);
+
+    usergeneratorView.getElementById("button").onclick = async () => {
+        const newUser = await createUser("random_username");
+        console.log("Bruker opprettet:", newUser);
+    };
+
+    return { view: usergeneratorView };
 }
 
-UsergeneratorViewController = {
-    view: usergeneratorView
-};
-
-
-export default LoginViewController
+export default loadUsergeneratorView;
