@@ -7,23 +7,9 @@ function RecordStoreAbstractInterface(){
   }
 }
 
-class RecordStoreAbstractInterface {
-    async create() {
-      throw new Error("Not implemented");
-    }
-    
-    async read() {
-      throw new Error("Not implemented");
-    }
-    
-    async update() {
-      throw new Error("Not implemented");
-    }
-    
-    async remove() {
-      throw new Error("Not implemented");
-    }
-  }
-
+function create(id) { throw Error("Not implemented") }
+function update(item) { throw Error("Not implemented") }
+function read(item) { throw Error("Not implemented") }
+function purge(item) { throw Error("Not implemented") }
   
 export default RecordStoreAbstractInterface

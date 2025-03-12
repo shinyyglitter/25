@@ -1,6 +1,5 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
-import HTTP_CODES from './utils/httpCodes.mjs';
 
 import log from './modules/log.mjs';
 import { LOGG_LEVELS } from './modules/log.mjs';
@@ -9,12 +8,12 @@ import { startSession, updateSession } from './modules/session.mjs';
 import treeRouter from './routes/treeAPI.mjs';
 import questLogRouter from './routes/questLogAPI.mjs';
 import userRouter from './routes/userAPI.mjs';
-import graphRouter from './routes/graphAPI.mjs';
+
 
 
 
 const server = express();
-const port = (process.env.PORT || 8000);
+const port = (process.env.PORT || 8080);
 const logger = log(LOGG_LEVELS.VERBOSE);
 
 
@@ -25,9 +24,8 @@ server.use(abTest)
 server.use(startSession);
 server.use(express.static('public'));
 server.use("/tree/", treeRouter);
-server.use("/graph/", graphRouter);
 server.use("/quest", questLogRouter);
-server.use("/user", userRouter);
+server.use("/", userRouter);
 
 
 

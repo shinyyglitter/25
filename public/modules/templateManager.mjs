@@ -1,21 +1,35 @@
 const TemplateManager = {};
 
 TemplateManager.fetchTemplate = async (path) => {
+    try {
+        let response = await fetch(path);
+        if (!response.ok) throw new Error(`Failed to load template: ${path}`);
+        let rawTemplate = await response.text();
+        
+        let div = document.createElement("div");
+        div.innerHTML = rawTemplate;
+        let template = div.firstChild;
 
-    let rawTemplate = await (await fetch(path)).text();
-    let div = document.createElement("div");
-    div.innerHTML = rawTemplate;
-    let template = div.firstChild;
-    return template;
+        if (!template) throw new Error(`Template is empty: ${path}`);
+        return template;
+    } catch (error) {
+        console.error(error);
+        return null; // Returner null hvis noe går galt
+    }
+};
 
-}
 
 TemplateManager.cloneTemplate = (template, target, data) => {
     const clone = template.content.cloneNode(true);
     let html = clone.firstElementChild.innerHTML;
 
-    for (let key of Object.keys(data)) {
-        html = html.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), data[key]);
+    // Hvis 'data' er undefined eller null, håndter det her
+    if (data && typeof data === "object") {
+        for (let key of Object.keys(data)) {
+            html = html.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), data[key]);
+        }
+    } else {
+        console.warn("Ingen data ble sendt til kloning av template", data);
     }
 
     clone.firstElementChild.innerHTML = html;

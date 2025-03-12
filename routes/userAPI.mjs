@@ -9,18 +9,19 @@ userRouter.use(express.json());
 
 userRouter.get("/", async (req, res) => {
     try {
-        const users = await user.readAll();  // OBS: Trenger en `readAll`-metode i `UserRecordStore`
+        const users = await user.readAll();  
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-userRouter.post("/", async (req, res) => {
-    const userData = req.body;  // Hent dataen fra forespørselen
+userRouter.post("/user", async (req, res) => {
+    console.log("📩 Mottatt forespørsel med data:", req.body);
+    const userData = req.body; 
     try {
-        const createdUser = await user.create(userData);  // Bruk create-metoden til UserRecordStore
-        res.status(201).json(createdUser);  // Send tilbake den nyopprettede brukeren
+        const createdUser = await user.create(userData);  
+        res.status(201).json(createdUser);  
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
