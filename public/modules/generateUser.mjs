@@ -1,3 +1,4 @@
+import loadUserTemplate from "../controller/userView.mjs";
 export async function createUser() {
     const generatedUsername = `user_${Math.floor(Math.random() * 10000)}`;
     try {
@@ -7,11 +8,6 @@ export async function createUser() {
             body: JSON.stringify({ username: generatedUsername }),
         });
 
-        if (!response.ok) {
-            console.error("Feil fra server:", errorDetails);
-            throw new Error("Kunne ikke opprette bruker");
-        }
-
         const newUser = await response.json();
 
         return await newUser;
@@ -20,8 +16,9 @@ export async function createUser() {
     }
 }
 
-export function generateUserButtonSetup(){
+export async function generateUserButtonSetup(){
     const generateUserButton = document.querySelector("#button");
+    const userView = await loadUserTemplate();
 
     if (!generateUserButton) {
         console.error("Kunne ikke finne knappen");
@@ -31,5 +28,6 @@ export function generateUserButtonSetup(){
     generateUserButton.addEventListener("click", async () => {
         const newUser = await createUser("random_username");
         console.log("Ny bruker:", newUser);
+        document.body.append(userView.view);
     });
 }

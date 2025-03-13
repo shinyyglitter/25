@@ -5,14 +5,14 @@ if ("serviceWorker" in navigator) {
 }
 
 
-async function loadApp() {
-  const userView = await loadUsergeneratorView();
+async function loadTemplate() {
+  const generateUserView = await loadUsergeneratorView();
   if (!userView) {
       console.error("Kunne ikke laste usergeneratorView.");
-      return; // Dette er OK, fordi return er inni en funksjon
+      return; 
   }
 
-  document.body.append(userView.view);
+  document.body.append(generateUserView.view);
 }
 
-loadApp();
+loadTemplate();

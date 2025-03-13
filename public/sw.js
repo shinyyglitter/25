@@ -18,13 +18,11 @@ self.addEventListener('install', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-    // Cache http and https only, skip unsupported chrome-extension:// and file://...
-    if (!(
+   if (!(
         e.request.url.startsWith('http:') || e.request.url.startsWith('https:')
     )) {
         return;
     }
-
     e.respondWith((async () => {
         const r = await caches.match(e.request);
         console.log(`[Service Worker] Fetching resource: ${e.request.url}`);

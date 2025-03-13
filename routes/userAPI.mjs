@@ -12,18 +12,18 @@ userRouter.get("/", async (req, res) => {
         const users = await user.readAll();  
         res.json(users);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        HTTP_CODES.SERVER_ERROR.INTERNAL_SERVER_ERROR
     }
 });
 
 userRouter.post("/user", async (req, res) => {
-    console.log("📩 Mottatt forespørsel med data:", req.body);
     const userData = req.body; 
     try {
         const createdUser = await user.create(userData);  
-        res.status(201).json(createdUser);  
+        HTTP_CODES.SUCCESS.CREATED
+        res.json(createdUser);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        HTTP_CODES.SERVER_ERROR.INTERNAL_SERVER_ERROR
     }
 });
 export default userRouter
