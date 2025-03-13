@@ -1,12 +1,24 @@
 import RecordStoreAbstractInterface from "./abstractRecordStore.mjs";
 import DbManager from "./db.js";
 
-class UserRecordStore extends RecordStoreAbstractInterface {
-    create(user) {
-        return DbManager.create(
-            `INSERT INTO "public"."users"("username") VALUES($1) RETURNING "user_id", "username";`, 
-            [user.username]
-        );
+class UserRecordStore {
+    constructor() {
+        this.abstractInterface = RecordStoreAbstractInterface();  // ✅ Use composition
+    }
+
+    async create(user) {
+        try {
+            console.log("Inserting user into DB:", user);  // ✅ Debugging log
+            const result = await DbManager.create(
+                `INSERT INTO "public"."users"("username") VALUES($1) RETURNING "user_id", "username";`,
+                [user.username]
+            );
+            console.log("DB result:", result);
+            return result;
+        } catch (error) {
+            console.error("Database error:", error);
+            throw error;
+        }
     }
 
     read(user_id) {
@@ -31,4 +43,5 @@ class UserRecordStore extends RecordStoreAbstractInterface {
     }
 }
 
+// ✅ Export as an instance
 export default UserRecordStore;

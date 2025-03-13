@@ -1,33 +1,40 @@
 import loadUserTemplate from "../controller/userView.mjs";
+
 export async function createUser() {
     const generatedUsername = `user_${Math.floor(Math.random() * 10000)}`;
+    
     try {
-        const response = await fetch("/user", {
+        const response = await fetch("/api/users/user", { 
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username: generatedUsername }),
         });
 
-        const newUser = await response.json();
+        if (!response.ok) {  
+            throw new Error(`Server responded with status: ${response.status}`);
+        }
 
-        return await newUser;
+        const newUser = await response.json();
+        return newUser;  
     } catch (error) {
-        console.error("Feil ved oppretting av bruker:", error);
+        console.error("Error creating user:", error);
     }
 }
 
-export async function generateUserButtonSetup(){
+export async function generateUserButtonSetup() {
     const generateUserButton = document.querySelector("#button");
     const userView = await loadUserTemplate();
 
-    if (!generateUserButton) {
-        console.error("Kunne ikke finne knappen");
-        return;
-    }
+    
 
     generateUserButton.addEventListener("click", async () => {
-        const newUser = await createUser("random_username");
-        console.log("Ny bruker:", newUser);
-        document.body.append(userView.view);
+        const newUser = await createUser();
+
+        if (newUser) { 
+            console.log("New user:", newUser);
+            document.body.append(userView.view);
+        } else {
+            console.error("Failed to create user.");
+        }
     });
 }

@@ -25,7 +25,7 @@ server.use(startSession);
 server.use(express.static('public'));
 server.use("/tree/", treeRouter);
 server.use("/quest", questLogRouter);
-server.use("/", userRouter);
+server.use("/api/users", userRouter);
 
 
 

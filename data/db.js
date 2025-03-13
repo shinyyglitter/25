@@ -1,44 +1,42 @@
-
 import pg from "pg";
 
-
-
 const config = {
-   connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: process.env.DB_SSL === "true" ? process.env.DB_SSL : { "rejectUnauthorized": false }
- }
+};
 
- export async function create(statement,...values){
-  return await runQuery(statement, ...values);  
+export async function create(query, ...values) {
+    return await runQuery(query, ...values);
 }
-export async function read(statement,...values){
-   return await runQuery(statement,...values);
+
+export async function read(query, ...values) {
+    return await runQuery(query, ...values);
 }
- export async function update(statement,...values){
-   return await runQuery(statement,...values);
+
+export async function update(query, ...values) {
+    return await runQuery(query, ...values);
 }
-export async function remove(statement,...values){
-   return await runQuery(statement,...values);
-}  
 
- async function runQuery(query, ...values){
-  const client = new pg.Client(config);
+export async function remove(query, ...values) {
+    return await runQuery(query, ...values);
+}
 
-  try {
-      client.connect();
-      const result = client.query(statment, [...values])
-      if (result.rowcount <= 0) {
-          throw new Error("No records created");
-      }
-      return result.row[0];
+async function runQuery(query, ...values) {
+    const client = new pg.Client(config);
 
-  } catch (error) {
-      console.error(error);
-      return null;
-
-  } finally {
-      client.close();
-  }
+    try {
+        await client.connect(); // Corrected to await the connect
+        const result = await client.query(query, [...values]); // Corrected query parameter
+        if (result.rowCount <= 0) {
+            throw new Error("No records created");
+        }
+        return result.rows[0]; // Corrected to return the first row of results
+    } catch (error) {
+        console.error(error);
+        return null;
+    } finally {
+        await client.end(); // Use end() instead of close()
+    }
 }
 
 const DbManager = { create, update, read, remove };

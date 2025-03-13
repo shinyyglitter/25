@@ -7,7 +7,7 @@ if ("serviceWorker" in navigator) {
 
 async function loadTemplate() {
   const generateUserView = await loadUsergeneratorView();
-  if (!userView) {
+  if (!generateUserView ) {
       console.error("Kunne ikke laste usergeneratorView.");
       return; 
   }
