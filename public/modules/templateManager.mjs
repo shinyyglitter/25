@@ -14,7 +14,7 @@ TemplateManager.fetchTemplate = async (path) => {
         return template;
     } catch (error) {
         console.error(error);
-        return null; // Returner null hvis noe går galt
+        return null; 
     }
 };
 
@@ -23,7 +23,6 @@ TemplateManager.cloneTemplate = (template, target, data) => {
     const clone = template.content.cloneNode(true);
     let html = clone.firstElementChild.innerHTML;
 
-    // Hvis 'data' er undefined eller null, håndter det her
     if (data && typeof data === "object") {
         for (let key of Object.keys(data)) {
             html = html.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), data[key]);
